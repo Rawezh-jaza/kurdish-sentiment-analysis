@@ -884,7 +884,7 @@ scrollbar-thumb {
 	box-shadow: 0 0 1px 0 rgba(0,12,32,0.04), 0 10px 16px 0 rgba(10,31,68,0.06);
 	border-radius: 8px;
 	padding: 10px 10px;
-	border: 1px solid #636ee1;
+	
 	display: inline-block;
 	margin-left: 10px;
 	color: black;
@@ -894,7 +894,7 @@ scrollbar-thumb {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-right: 5px;
-	background-color: transparent;
+	background-color: lightgreen;
 }
 .l-box {
 	width: fit-content;
@@ -925,10 +925,12 @@ scrollbar-thumb {
 
 .l-negative {
 	background-color: lightcoral;
+	border: 1px solid rgba(0, 0, 0, 0.1); /* Add a light border */
 }
 
 .l-neutral {
 	background-color: lightgray;
+	border: 1px solid rgba(0, 0, 0, 0.1); /* Add a light border */
 }
 
 
