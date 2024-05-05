@@ -1,0 +1,938 @@
+@font-face {
+	font-family: 'Rabar';
+	/* Assuming your font file is in a 'static/font' directory within your web project */
+	src: url('/static/font/Rabar_021.ttf') format('truetype');
+    font-weight: normal;
+	font-style: normal;
+  }
+
+html , body {
+	font-family: 'Rabar', sans-serif;
+	color: #3a3f52;
+	direction: rtl;
+	text-align: right;
+	background-color: #333;
+	
+	
+}
+
+
+h2 {
+	font-size: 44px;
+	font-weight: 700;
+}
+
+h3 {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 25px;
+}
+
+h5 {
+	font-size: 16px;
+}
+
+p {
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: .05em;
+	color: #53627C;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+	position: relative; /* add position: relative to the ul */
+  }
+  
+  li {
+	position: relative; /* add position: relative to the li */
+  }
+  
+  li:after
+   {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #6772e5 ; /* adjust the color as needed */
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+  
+  li:hover:after {
+	opacity: 1;
+  }
+  
+
+b {
+	font-weight: 700;
+}
+
+section {
+	padding: 100px 0px;
+}
+
+.title-block {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.title-block p {
+	font-size: 20px;
+	font-weight: 300;
+	color: #8da2b5;
+	margin-bottom: 0px;
+}
+
+.divider {
+	padding: 2rem 0 0;
+    margin: 2rem 0 0;
+    border-top: 1px solid #3c3f45;
+}
+
+.divider-light {
+	padding: 2rem 0 0;
+    margin: 2rem 0 0;
+	border-top: 1px solid #edf1f2
+}
+
+/* ==============================================
+   2. Navbar 
+===============================================*/
+
+
+
+.custom-navbar {
+	background-color: #ffffff!important;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.09);
+	height: 70px;
+	max-height: 70px;
+}
+nav {
+	direction: ltr;
+	text-align: left;
+}
+
+.navbar-toggler {
+	font-size: 38px;
+	background-color: transparent;
+}
+
+.navbar-toggler:focus {
+	text-decoration: none;
+	outline: none;
+}
+
+.navbar-toggler-icon {
+	color: #ffffff;
+}
+
+.navbar-collapse {
+	background-color: #ffffff;
+}
+
+.nav-custom-link {
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: .05em;
+	margin-top: 5px;
+}
+
+.navbar a {
+	color: #53627C !important;
+}
+
+.nav-right {
+	float: right;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 50px; /* Adjust the value as needed */
+	margin-top: 15px;
+}
+
+/* Position the mobile logo */
+.img-fluid.nav-logo-mobile {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px; /* Adjust the left position as needed */
+}
+
+/* Hide the desktop logo on smaller screens */
+.img-fluid.nav-logo-desktop {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    /* Show the desktop logo on larger screens */
+    .img-fluid.nav-logo-desktop {
+        display: block;
+    }
+    
+    /* Hide the mobile logo on larger screens */
+    .img-fluid.nav-logo-mobile {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+/* ==============================================
+   3. Buttons
+===============================================*/
+
+.btn {
+	font-size: 14px;
+	font-weight: 400;
+	border-radius: 3px!important;
+	box-shadow: 0 2px 3px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.08);
+}
+
+.btn:hover {
+	text-decoration: none;
+}
+
+.btn-regular {
+	background-color: #0095f7;
+	color: #ffffff;
+	padding: 10px 25px;
+	letter-spacing: .1em;
+	margin-top: 25px;
+	display: inline-block;
+}
+
+.btn-regular:hover {
+	background-color: #0191f0;
+	color: #ffffff;
+}
+
+.btn-demo {
+	color: #ffffff;
+	background-color: #6772e5;
+	letter-spacing: .1em;
+	padding: 15px 48px;
+	display: inline-block;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.btn-demo:hover {
+	color: #ffffff;
+	background-color: #636ee1;
+}
+
+.btn-demo-small {
+	font-size: 12px;
+	background-color: #6772e5;
+	padding: 1px 4px;
+}
+
+.btn-demo-small:hover {
+	background-color: #636ee1;
+}
+
+.btn-demo-small a {
+	color: #ffffff!important;
+}
+
+.btn-buy {
+	color: #ffffff;
+	background-color: #0095f7;
+	letter-spacing: .1em;
+	padding: 15px 48px;
+	display: inline-block;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.btn-buy:hover {
+	background-color: #0191f0;
+	color: #ffffff;
+}
+
+/* ==============================================
+   4. Hero
+===============================================*/
+
+#hero {
+	background-color: #ffffff;
+}
+
+#hero h1 {
+	font-size: 50px;
+	font-weight: 300;
+}
+
+#hero p {
+	font-size: 24px;
+    font-weight: 300;
+    color: #8da2b5;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+#hero span {
+	font-weight: 400;
+    color: #0095f7;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+/* ==============================================
+   5. Marketing
+===============================================*/
+#marketing {
+	background-color:#f6f8f9 ;
+}
+
+#marketing p {
+	font-size: 20px;
+    font-weight: 300;
+    color: #8da2b5;
+    margin-bottom: 0px;
+    padding: 0px;
+	
+}
+
+#marketing span {
+	font-weight: 400;
+	color: #0095f7;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+}
+
+.content-box {
+	direction: rtl;
+	text-align: right;
+}
+
+
+
+/* ==============================================
+   6. Testimonials
+===============================================*/
+
+#test {
+
+	background:#f6f8f9; /* Change the colors as desired */
+	border-top: 1px solid #F8F9FB;
+	border-bottom: 1px solid #F8F9FB;
+
+}
+
+#testimonials {
+    background: #ffffff ; /* Change the colors as desired */
+    border-top: 1px solid #F8F9FB;
+    border-bottom: 1px solid #F8F9FB;
+
+    
+	 /* Add border radius */
+
+}
+
+
+  
+.score-circle {
+	width: 100px; /* Set width */
+	height: 100px; /* Set height */
+	border-radius: 50%; /* Make it circular */
+	background-color: white; /* Set background color */
+	border: 5px solid #636ee1; /* Add border with 1px width, solid style, and #333 color */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+  
+  #scorePercentage {
+	color: #333; /* Set text color */
+  }
+.button-analysis label {
+	display: inline-block;
+	padding: 5px 5px;
+	cursor: pointer;
+	background-color: #6772e5; /* Change background color as desired */
+	color: #fff; /* Change text color as desired */
+	border: none;
+	border-radius: 3px;
+	transition: all 0.3s ease-in-out;
+  }
+  
+
+  
+ 
+
+.testimonial-box {
+	background-color:#F8F9FB;
+	box-shadow: 0 0 1px 0 rgba(0,12,32,0.04), 0 10px 16px 0 rgba(10,31,68,0.06);
+	border-radius: 20px;
+	padding: 20px 30px;
+	margin-top: 30px;
+	border: 1px solid #636ee1;
+	
+}
+
+.testimonial-box h6 {
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: .05em;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	color: black;
+}
+
+.testimonial-box p {
+	font-size: 16px;
+	font-weight: 300;
+	margin-top: 25px;
+	line-height: 1.8;
+	padding: 0px;
+}
+
+.testimonial-box i {
+	color: #ffffff;
+}
+
+.testimonial-box small {
+	color: #8da2b5;
+	display: inline-block;
+}
+
+.testimonial-box span {
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.rating {
+	background-color: #0095f7;
+	padding: 2px 12px;
+	border-radius: 50px;
+}
+
+.profile-picture {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.review-one {
+  background-image: url('images/profile-picture-one.jpg');
+}
+
+.personal-info {
+	padding: 5px 0 20px 0;
+	border-bottom: 1px solid #edf1f2;
+}
+
+#table-container {
+	height: 300px;
+	overflow-y: auto;
+	
+}
+
+
+/* ==============================================
+   7. Pricing
+===============================================*/
+
+#pricing {
+	background-color: #ffffff;
+	
+}
+
+
+
+.pricing-box h3 {
+	font-size: 22px;
+	font-weight: 300;
+	letter-spacing: .1em;
+	color: #0095f7;
+}
+
+.pricing-box h6 {
+	font-size: 60px;
+	font-weight: 700;
+	color: #3a3f52;
+	margin-bottom: 0px;
+}
+
+.pricing-box p {
+	font-size: 17px;
+	margin-top: 15px;
+	padding: 0px;
+}
+
+.pricing-box ul {
+	padding-left: 10px;
+}
+
+.pricing-box li {
+	font-size: 14px;
+	font-weight: 300;
+	color: #8da2b5;
+	letter-spacing: .1em;
+}
+
+.pricing-box span {
+	font-weight: 500;
+	color: #0095f7;
+}
+
+.pricing-box small {
+	color: #8da2b5;
+	letter-spacing: .2em;
+}
+
+.pricing-box i {
+	font-size: 20px;
+	color: #0095f7;
+	margin-right: 10px;
+}
+
+.pricing-box .demo {
+	color: #6772e5!important;
+}
+
+/* ==============================================
+   8. Call to Action
+===============================================*/
+
+#call-to-action {
+	background-image: url('images/call-to-action.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+}
+
+#call-to-action h2 {
+	color: #ffffff;
+}
+
+#call-to-action p {
+	font-size: 20px;
+	font-weight: 300;
+	color: #ffffff;
+	opacity: .8;
+	margin-bottom: 40px;
+}
+
+#call-to-action .title-block {
+	margin-bottom: 0px;
+}
+
+#call-to-action .btn-regular {
+	background-color: #ffffff!important;
+	color: #0095f7!important;
+	padding: 15px 45px;
+}
+
+#call-to-action .title-block {
+	margin-bottom: 0px;
+}
+
+/* ==============================================
+   9. Footer
+===============================================*/
+
+a:after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #6772e5 ; /* adjust the color as needed */
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+  
+  a:hover:after {
+	opacity: 1;
+  }
+
+/* ==============================================
+   9. Media Queries
+===============================================*/
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+	h2 {
+		font-size: 34px!important;
+		margin-bottom: 20px;
+		line-height: 1.6;
+	}
+	.title-block h2, p {
+		text-align: left;
+		padding: 0px 20px;
+	}
+
+	nav {
+		direction: rtl;
+		text-align: right;
+	}
+	#call-to-action h2, p {
+		text-align: left!important;
+		padding: 0 20px;
+	}
+
+	#call-to-action {
+		background-image: none;
+		background-color: #0095f7;
+	}
+
+	footer {
+		padding: 60px 25px;
+	}
+	footer h5 {
+		font-size: 18px;
+		margin-top: 30px;
+	}
+	footer li {
+		font-size: 16px;
+		margin-bottom: 15px;
+	}
+	footer p {
+		font-size: 16px;
+	}
+	footer i {
+		font-size: 30px;
+		margin-right: 20px;
+	}
+	footer small {
+		float: left;
+		margin-top: 20px;
+	}
+}
+
+@media (max-width: 768px) { 
+	#hero h1 {
+		font-size: 34px!important;
+		margin-bottom: 20px;
+	}
+	#hero p {
+		font-size: 20px!important;
+	}
+
+	.button-analysis {
+		margin-top: 10px;
+	}
+		nav {
+		direction: rtl;
+		text-align: right;
+	}
+	
+}
+@media (min-width: 992px) and(max-width: 1055px) { 
+	.icon-mobile {
+		display: none;
+	}
+	.nav-logo-mobile {
+		display: none;
+	}
+
+	
+}
+
+
+
+@media (max-width: 991px) { 
+	.nav-right {
+		float: left;
+	}
+	.nav-custom-link {
+		border-bottom: 1px solid #EEE;
+	}
+	.navbar-nav{
+		width: 100%;
+	}
+	.navbar-nav .nav-link {
+		padding: 20px 0;
+		text-align: left;
+	}
+
+	nav {
+		direction: rtl;
+		text-align: right;
+	}
+
+	.btn-demo-small {
+		background-color: #ffffff;
+		border: 0px;
+		padding: 0px;
+		box-shadow: none;
+
+	}
+	.btn-demo-small:hover {
+		background-color: #ffffff;
+		border: 0px;
+		padding: 0px;
+		box-shadow: none;
+
+	}
+	.btn-demo-small a {
+		color: #53627C!important;
+	}
+	.nav-custom-link {
+		font-size: 13px;
+	}
+
+	.icon-mobile {
+		font-size: 18px;
+		float: right;
+	}
+
+	.navbar-collapse {
+		border-bottom: 1px solid #efefef;
+	}
+
+	.nav-logo-mobile {
+		margin: auto;
+		padding-right: 50px;
+	}
+
+	.nav-logo-desktop {
+		display: none;
+	}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+	.icon-mobile {
+		display: none;
+	}
+	.nav-logo-mobile {
+		display: none;
+	}
+	
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+	.hero-content {
+		margin-top: 100px;
+	}
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+	.pricing-box h3 {
+		font-size: 17px;
+	}
+	.pricing-box p {
+		font-size: 14px;
+	}
+	.pricing-box li {
+		font-size: 12px;
+	}
+	.btn-buy {
+		font-size: 12px;
+		padding: 15px 20px;
+	}
+	.btn-demo {
+		font-size: 12px;
+		padding: 15px 20px;
+	}
+	.profile-picture {
+		width: 50px;
+		height: 50px;
+	}
+	.testimonial-box h6 {
+		font-size: 14px;
+		margin-left: 10px;
+	}
+	.testimonial-box span {
+		font-size: 12px;
+	}
+	.testimonial-box small {
+		font-size: 12px;
+		margin-top: 4px;
+		margin-left: 10px;
+	}
+}
+
+  
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+  @media (max-width: 500px) {
+	.outer-container {
+	  padding: 10px 20px 10px 20px;
+	}
+  
+	.section-head-text {
+	  text-align: center;
+	}
+  }
+
+  /* Target Webkit scrollbar (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 10px; /* Adjust scrollbar width */
+}
+
+/* Target Webkit track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set background color */
+}
+
+/* Target Webkit thumb (handle) */
+::-webkit-scrollbar-thumb {
+  background: #636ee1; /* Set handle color */
+  border-radius: 5px; /* Add optional rounded corners */
+}
+
+/* Optional: Target Mozilla scrollbar (Firefox) */
+scrollbar {
+  width: 10px; /* Adjust scrollbar width */
+}
+
+/* Optional: Target Mozilla track (background) */
+scrollbar-track {
+  background: #f1f1f1; /* Set background color */
+}
+
+/* Optional: Target Mozilla thumb (handle) */
+scrollbar-thumb {
+  background: #888; /* Set handle color */
+  border-radius: 5px; /* Add optional rounded corners */
+}
+
+
+/* Define keyframes for border color change */
+@keyframes border-color-change {
+	0% { border-color: #ff0000; } /* Start color (red) */
+	25% { border-color: #00ff00; } /* Color change (green) */
+	50% { border-color: #0000ff; } /* Color change (blue) */
+	75% { border-color: #ff00ff; } /* Color change (magenta) */
+	100% { border-color: #ff0000; } /* Back to start color (red) */
+  }
+  
+  /* Apply animation to the circular images */
+  .img-thumbnail {
+	width: 100px; /* Set width */
+	height: 100px; /* Set height */
+	border-radius: 50%; /* Make it circular */
+	border: 3px solid; /* Add border */
+	animation: border-color-change 5s infinite; /* Apply animation with 5 seconds duration and infinite loop */
+  }
+  
+  
+.kurdish-word {
+	color: #6772e5;
+	font-size: 25px;
+}
+
+		/* Add this CSS to your stylesheet */
+.background-animation img {
+    animation: move-vertical 3s infinite alternate;
+}
+
+@keyframes move-vertical {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10%);
+    }
+}
+
+
+.letter-with-space {
+	padding-right: 5px;
+}
+.logo {
+	float: left;
+}
+
+.label-box {
+	background-color:#F8F9FB;
+	box-shadow: 0 0 1px 0 rgba(0,12,32,0.04), 0 10px 16px 0 rgba(10,31,68,0.06);
+	border-radius: 8px;
+	padding: 10px 10px;
+	border: 1px solid #636ee1;
+	display: inline-block;
+	margin-left: 10px;
+	color: black;
+}
+.d-field {
+	margin-top: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 5px;
+	background-color: transparent;
+}
+.l-box {
+	width: fit-content;
+}
+.l-positive {
+    position: relative;
+    background-color: lightgreen;
+    border-radius: 10px;
+
+    display: inline-block;
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Add a light border */
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1); /* Add a shadow */
+}
+
+
+
+.l-positive:before {
+    content: "";
+    position: absolute;
+    bottom: -20px; /* Adjust this value to position the triangle relative to the box */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: lightgreen transparent transparent transparent;
+}
+
+
+.l-negative {
+	background-color: lightcoral;
+}
+
+.l-neutral {
+	background-color: lightgray;
+}
+
+
+
+
+
+

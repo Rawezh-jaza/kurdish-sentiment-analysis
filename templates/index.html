@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" type="text/css" href="{{  url_for('static',filename='styles/design.css') }}"/>
+
+    <!-- Ionic icons -->
+    <link href="https://unpkg.com/ionicons@4.2.0/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.ico') }}">
+
+
+    <title>Kurdish-Sentiment-Analysis</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+</head>
+
+<body>
+
+  {% include 'nav.html' %}
+
+<main>
+
+    <section id="hero" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <div class="background-animation">
+                        <img style="height: auto; width: auto;" class="img-fluid align-self-center" src="{{ url_for('static', filename='images/comm.jpg') }}" alt="Animated Image">
+                    </div>
+                </div>
+                <div class="col-md-7 content-box hero-content">
+                    <span>زمانی کوردی</span>
+                    <h1>ماڵپەڕێک بۆ <b>شیکاری بۆچوونەکان</b></h1>
+                    <div style="margin-bottom:10px;"><small>نموونە</small></div>
+                    <div class="testimonial-box l-box">
+                        <div class="d-inline-block">
+                            <div class="label-box l-positive">ئەرێنی<img style="height: auto; width: auto;padding-right:3px;" class="img-fluid align-self-center" src="{{ url_for('static', filename='images/checked.png') }}" alt="Animated Image"></div>
+                            <div class="label-box l-negative">نەرێنی</div>
+                            <div class="label-box l-neutral">بێلایەن</div>
+                        </div>
+                        <br>
+                        <input type="text" class="form-control d-field" disabled value="زۆر جوانە">
+                    </div>
+                    <a href="#marketing" class="btn btn-regular" style="background-color:#636ee1;">زیاتر بزانە</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+
+<section id="marketing" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <div class="content-box">
+                    <span >شیکاری بۆچوونەکان</span>
+                    <h2>دەربارەی ماڵپەڕ</h2>
+                    <p class="text-right">
+                        ئەم ماڵپەڕە بەکاریەت بۆ دیاریکردن و جیاکردنەوەی ڕستەی ئەرێنی و نەرێنی لە ڕێگەی ژیری دەستکردەوە ، بەهیوانی گەیاندی سوودێک و دەوڵەماند کردنی زیاتری زمانی کوردی.
+                    </p>
+                    
+                    <a href="#testimonials" class="btn btn-regular"style="background-color:#636ee1;">با دەست پێبکەین</a>
+                </div>
+            </div>
+            <div class="col-md-7">
+                
+                <image class="img-fluid" src="{{  url_for('static',filename='images/s.png') }}" >  
+            </div>
+        </div>
+    </div>
+
+    <section id="testimonials" class="responsive-section section">
+      <div class="container">
+        <div class="title-block">
+            <h2 style="text-align: center;">بەشی ڕستە</h2>
+            <p class="text-center">
+             لێرە ئەو ڕستەیەی دەتەوێت بینووسە، لەڕێگەی ژیری دەسکردەوە ئەنجامەکەت پێدەڵێت.
+            </p>
+        </div>
+      <div class="row">
+              <div class="col-md-6 col-sm-12">
+                  <div class="testimonial-box">
+                      <div class="row personal-info">
+                          <div class="col-md-12">
+                              <h6>بنووسە</h6>
+                          </div>
+                      </div>
+                      <br>
+                      <form id="inputForm" action="/predict" method="POST" onsubmit="submitForm(event)">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <textarea id="inputText" name="text" class="form-control" rows="5" placeholder="لێرە بینووسە..."></textarea>
+                              </div>
+        
+                              <div class="col-md-12 button-analysis" style="margin-top:10px;">
+                                  <button type="submit" id="submitButton" class="btn btn-primary" style="background-color:#636ee1;"><i class="bi bi-clipboard-data" style="padding-left: 2px;padding-right: 2px;"></i>شیکاری دەق</button>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+  
+              <div class="col-md-6 col-sm-12">
+                  <div class="testimonial-box re">
+                      <div class="row personal-info">
+                        
+                          <div class="col-md-12">
+                              <h6 style="text-align: right;">ئەنجام</h6>
+                          </div>
+                      </div>
+  
+                    
+                          <div id="result" class="p-3 rounded">
+                              <div class="alert" role="alert">
+                                  <strong>{{ variable }}</strong>
+                              </div>
+                          </div>
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  
+
+
+  <section id="test" class="responsive-section section">
+    <div class="container">
+        <div class="title-block">
+            <h2 style="text-align: center;">بەشی فایل</h2>
+            <p class="text-center">
+              لێرە ئەو فایلەی ئەتەوێت ئەتوانیت هەڵیبژێریت و ئەو کۆلۆمەی ئەتەوێت بەشێوەی زیرەکی دەست کرد بۆت لەیبڵ بکات.
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="testimonial-box">
+                    <div class="row personal-info">
+                        <div class="col-md-12">
+                            <h6>فایلەکەت هەڵبژێرە</h6>
+                        </div>
+                    </div>
+                    <br>
+                    <form id="fileForm" action="/predict_file" method="POST" enctype="multipart/form-data" onsubmit="submitFileForm(event)">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-8 button-analysis">
+                                <label for="customFile">
+                                    <i class="nav-item nav-custom-link btn btn-demo-small"></i> فایلەکەت هەڵبژێرە
+                                </label>
+                                <input type="file" class="form-control d-none" name="file" accept=".xlsx,.xls" id="customFile" onchange="showUploadBox()" />
+                                <hr>
+                                <div id="uploadBox" class="d-none">
+                                    <p>فایلت بە سەرکەوتوویی ھەڵبژێرا</p>
+                                    <span id="fileName"></span>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 col-lg-8 mb-2">
+                                        <input id="column" name="column" type="text" class="form-control" style="width: 100%; min-width: 0;" placeholder="ناوی ئەو کۆڵۆمەی ئەتەوێت...">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-4 button-analysis">
+                                        <button type="submit" class="btn btn-primary" style="background-color:#636ee1;"><i class="bi bi-file-arrow-down" style="padding-left: 2px; padding-right: 2px;"></i>ئەنجامی ڕێکخستن</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="div" class="p-3 rounded">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="testimonial-box">
+                    <div class="row personal-info">
+                        <div class="col-md-12">
+                            <h6 style="text-align: right;">ئەنجام</h6>
+                        </div>
+                    </div>
+
+                    <div id="table-container" class="mt-2">
+                        
+                    </div>
+
+                <div id="download_link"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+
+<section id="pricing">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-5">
+                <h2 class="font-weight-light text-right">ستاف</h2>
+                <p class="text-right">لێرە ئەندامانی پەرەپێدەری ئەم ماڵپەڕە بناسە</p>
+            </div>
+        </div>
+
+      <div class="row text-center">
+
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class=" bg-dark rounded shadow-sm py-5 px-4">
+  
+            <image width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" src="{{  url_for('static',filename='images/peshraw.jpg') }}" >  
+            <h5 class="mb-0 text-white">پێشڕەو عبداللە</h5>
+            <span class="small text-uppercase text-info">سەرپەرشتیار</span>
+            <ul style="direction: ltr;" class="social mb-0 list-inline mt-3">
+              <li class="list-inline-item"><a href="https://www.facebook.com/peshrawh?mibextid=ZbWKwL" class="social-link text-white"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+       
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class="bg-dark rounded shadow-sm py-5 px-4">
+           
+            <image width="100"    class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" src="{{  url_for('static',filename='images/rawezh.jpg') }}" >  
+            <h5 class="mb-0 text-white">ڕاوێژ جەزا</h5>
+            <span class="small text-uppercase text-info">پەرەپێدەر</span>
+            <ul style="direction: ltr;" class="social mb-0 list-inline mt-3 text-center">
+              <li class="list-inline-item"><a href="https://www.facebook.com/rawezh.0894?mibextid=ZbWKwL" class="social-link text-white"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="https://www.instagram.com/rawezh_0894/" class="social-link text-white"><i class="fa fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        
+      
+      
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class="bg-dark rounded shadow-sm py-5 px-4">
+            <image width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" src="{{  url_for('static',filename='images/rozh.jpg') }}" >  
+            <h5 class="mb-0 text-white">ڕۆژ جەزا</h5>
+            <span class="small text-uppercase text-info">پەرەپێدەر</span>
+            <ul style="direction: ltr;" class="social mb-0 list-inline mt-3">
+              <li class="list-inline-item"><a href="https://www.facebook.com/profile.php?id=100039638389648&mibextid=ZbWKwL" class="social-link text-white"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+     
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class="bg-dark rounded shadow-sm py-5 px-4">
+
+            <image width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" src="{{  url_for('static',filename='images/danyar.jpg') }}" >  
+            <h5 class="mb-0 text-white">دانیار جونەید</h5>
+            <span class="small text-uppercase text-info">پەرەپێدەر</span>
+            <ul style="direction: ltr;" class="social mb-0 list-inline mt-3">
+              <li class="list-inline-item"><a href="https://www.facebook.com/profile.php?id=100021951121739&mibextid=ZbWKwL" class="social-link text-white"><i class="fa fa-facebook-f"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="https://www.instagram.com/danyar_junaed/" class="social-link text-white"><i class="fa fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#" class="social-link text-white"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+    
+  
+      </div>
+    </div>
+  </section>
+
+
+</main>
+  
+{% include 'footer.html' %}
+
+
+  
+
+  <script type="text/javascript" src="{{  url_for('static',filename='script/script.js') }}"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  
+
+
+
+  </body>
+</html>
