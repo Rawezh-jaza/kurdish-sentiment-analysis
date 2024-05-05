@@ -7,7 +7,7 @@ import pandas as pd # type: ignore
 app = Flask(__name__)
 
 # Load the pre-trained sentiment analysis model
-with open(r'C:\Users\Acer Nitro 5\Downloads\sentiment_analysis_model.pkl', 'rb') as model_file:
+with open('static/model/sentiment_analysis_model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
 def allowed_file(filename):
