@@ -1,14 +1,19 @@
-from flask import Flask, jsonify, render_template, request, send_file, send_from_directory # type: ignore
+from flask import Flask, jsonify, render_template, request, send_file, send_from_directory
 import pickle
 import tempfile
 import os
-import pandas as pd # type: ignore
+import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 
-# Load the pre-trained sentiment analysis model
-with open('static/model/sentiment_analysis_model.pkl', 'rb') as model_file:
+# Load the pre-trained sentiment analysis model (classifier)
+with open('static/model/nb_classifier.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
+
+# Load the TF-IDF vectorizer
+with open('static/model/tfidf_vectorizer.pkl', 'rb') as vectorizer_file:
+    vectorizer = pickle.load(vectorizer_file)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx', 'xls'}
@@ -19,12 +24,15 @@ def my_form():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    text = request.form['text']
-    
+    text = request.form['text']    
     if not text:
         return jsonify({'variable': 'تکایە ڕستەیەک بنووسە'})
     
-    predicted_label = model.predict([text])[0]
+    # Vectorize the text data using the pre-trained TF-IDF vectorizer
+    text_data = vectorizer.transform([text])
+    
+    # Predict using the loaded classifier
+    predicted_label = model.predict(text_data)[0]
 
     if predicted_label == 'positive':
         label = 'ئەم ڕستە ئەرێنییە✔️'
@@ -32,9 +40,7 @@ def predict():
         label = 'ئەم ڕستە بێلایەنە🤷'
     elif predicted_label == 'negative':
         label = 'ئەم ڕستەیە نەرێنییە❌'
-    else:
-        label = 'هیج ئەنجامێک نەدۆ'
-        
+
     return jsonify({'variable': label})
 
 @app.route('/downloads/<filename>')
@@ -60,12 +66,13 @@ def predict_file():
     text_column = request.form['column']
 
     if text_column not in df.columns:
-        return jsonify({'result': 'ناوی کۆڵۆماکە هەڵەیە'})
+        return jsonify({'result': 'ناوی کۆڵۆمەکە هەڵەیە'})
 
     analyzed_sentences = []
     for index, row in df.iterrows():
         sentence = row[text_column]
-        predicted_label = model.predict([sentence])[0]
+        text_data = vectorizer.transform([sentence])
+        predicted_label = model.predict(text_data)[0]
 
         if predicted_label == 'positive':
             label = 'Positive'
@@ -88,4 +95,3 @@ def predict_file():
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
-

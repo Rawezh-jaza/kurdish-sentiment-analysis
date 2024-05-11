@@ -55,17 +55,23 @@ function showUploadBox() {
 
  
 
-  function submitForm(event) {
+  document.getElementById('inputText').addEventListener('click', function() {
+    document.getElementById('result').innerHTML = '';
+
+    
+});
+
+function submitForm(event) {
     event.preventDefault(); 
 
     // Get the textarea value
     var textAreaValue = document.getElementById('inputText').value;
-        // Check if the textarea is empty
-        if (!textAreaValue.trim()) {
-            showAlert('تکایە ڕستەیەک بنووسە');
-            return false;
-        }
     
+    // Check if the textarea is empty
+    if (!textAreaValue.trim()) {
+        showAlert('تکایە ڕستەیەک بنووسە');
+        return false;
+    }
     
     var kurdishLettersRegex = /^[\u0626\u0627\u0628\u067E\u062A\u062C\u0686\u062D\u062E\u062F\u0631\u0695\u0632\u0698\u0633\u0634\u0639\u063A\u0641\u06A4\u0642\u06A9\u06AF\u0644\u06B5\u0645\u0646\u0648\u06C6\u0647\u06D5\u06CC\u06CE\s.,!?;:'"()]+$/;
         
@@ -82,13 +88,11 @@ function showUploadBox() {
         return false;
     }
     
-    
     if (/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/.test(textAreaValue)) {
         showAlert('تکایە هێماکانی ڕستە سازی مەنووسە');
         return false;
     }
     
-
     if (/<script.*?>.*?<\/script>/i.test(textAreaValue)) {
         showAlert('ناتوانیت تاگەکانی جاڤا سکریپت و HTML بنووسیت');
         return false;
@@ -103,21 +107,25 @@ function showUploadBox() {
     .then(response => response.json()) 
     .then(data => {
         let alertClass = '';
-        if (data.variable == 'ئەم ڕستە ئەرێنییە✔️') {
+        if (data.variable === 'ئەم ڕستە ئەرێنییە✔️') {
             alertClass = 'alert-success';
-        } else if (data.variable == 'ئەم ڕستەیە نەرێنییە❌') {
+        } else if (data.variable === 'ئەم ڕستەیە نەرێنییە❌') {
             alertClass = 'alert-danger';
         } else if (data.variable) {
             alertClass = 'alert-secondary';
         }
         
-        // Display custom alert
+
+
+        // Show new result
         showAlert(data.variable, alertClass);
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }
+
+
 
 // Function to display custom alert
 function showAlert(message, alertClass = 'alert-warning') {
