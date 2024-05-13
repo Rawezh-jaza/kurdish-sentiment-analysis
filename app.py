@@ -1,36 +1,14 @@
-from flask import Flask, jsonify, render_template, request, send_file, send_from_directory
-import joblib
+from flask import Flask, jsonify, render_template, request, send_file, send_from_directory # type: ignore
 import tempfile
 import os
-import pandas as pd 
-import re
-import nltk
-from kurdish import ku 
+import pandas as pd # type: ignore
 
 app = Flask(__name__)
-nltk.download('wordnet')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
 
-# Load the pre-trained sentiment analysis model
+import joblib
+
 with open('static/model/svm_model.pkl', 'rb') as model_file:
     model = joblib.load(model_file)
-    
-def preprocessText(text):
-    if pd.isnull(text):
-        return ""
-    cleaned_text = re.sub(r"<.*?>", "", text)
-    cleaned_text = re.sub(r'@[a-zA-Z0-9_]+\s?[a-zA-Z0-9_]+', "", cleaned_text)
-    cleaned_text = re.sub(r"http\S+|www\S+|https\S+", "", cleaned_text, flags=re.MULTILINE)
-    cleaned_text = re.sub(r"\d+", "", cleaned_text)
-    cleaned_text = re.sub(r"[^\w\s]", "", cleaned_text, flags=re.UNICODE)
-    cleaned_text = re.sub(r"[0-9]", "", cleaned_text)
-    words = nltk.word_tokenize(cleaned_text)
-    cleaned_text = " ".join(words)
-    cleaned_text = ku.Hemwar().ali_k_to_uni(cleaned_text)
-    return cleaned_text
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx', 'xls'}
@@ -46,9 +24,7 @@ def predict():
     if not text:
         return jsonify({'variable': 'تکایە ڕستەیەک بنووسە'})
     
-    preprocessed_text = preprocessText(text)
-    
-    predicted_label = model.predict([preprocessed_text])[0]
+    predicted_label = model.predict([text])[0]
 
     if predicted_label == 'positive':
         label = 'ئەم ڕستە ئەرێنییە✔️'
@@ -111,3 +87,4 @@ def predict_file():
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
+

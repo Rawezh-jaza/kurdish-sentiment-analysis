@@ -72,14 +72,8 @@ function submitForm(event) {
         showAlert('تکایە ڕستەیەک بنووسە');
         return false;
     }
-
-    if (/[a-zA-Z]/.test(textAreaValue)) {
-        showAlert('تکایە تەنها پیتەکانی کوردی بنووسە');
-        return false;
-    }
-
     
-    
+    var kurdishLettersRegex = /^[\u0626\u0627\u0628\u067E\u062A\u062C\u0686\u062D\u062E\u062F\u0631\u0695\u0632\u0698\u0633\u0634\u0639\u063A\u0641\u06A4\u0642\u06A9\u06AF\u0644\u06B5\u0645\u0646\u0648\u06C6\u0647\u06D5\u06CC\u06CE\s.,!?;:'"()]+$/;
         
     var words = textAreaValue.trim().split(/\s+/);
 
@@ -89,7 +83,10 @@ function submitForm(event) {
         return false;
     }
 
-
+    if (!kurdishLettersRegex.test(textAreaValue)) {
+        showAlert('تەنها پیتەکانی کوردی بنووسە بەبێ هێماکانی ڕستەسازی.');
+        return false;
+    }
     
 
     if (/<script.*?>.*?<\/script>/i.test(textAreaValue)) {
@@ -122,10 +119,6 @@ function submitForm(event) {
     .catch(error => {
         console.error('Error:', error);
     });
-}
-
-function clearTextArea() {
-    document.getElementById('inputText').value = ''; // Clear the textarea value
 }
 
 
