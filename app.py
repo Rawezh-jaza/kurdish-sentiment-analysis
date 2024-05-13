@@ -8,7 +8,7 @@ import nltk
 from kurdish import ku 
 
 app = Flask(__name__)
-
+nltk.download('wordnet')
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('maxent_ne_chunker')
