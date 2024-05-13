@@ -9,8 +9,10 @@ from kurdish import ku
 
 app = Flask(__name__)
 
-nltk.download('all')
-nltk.download('wordnet')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
 
 # Load the pre-trained sentiment analysis model
 with open('static/model/svm_model.pkl', 'rb') as model_file:
