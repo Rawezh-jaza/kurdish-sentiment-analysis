@@ -1,19 +1,31 @@
 from flask import Flask, jsonify, render_template, request, send_file, send_from_directory
-import pickle
+import joblib
 import tempfile
 import os
-import numpy as np
-import pandas as pd
+import pandas as pd 
+import re
+import nltk
+from kurdish import ku 
 
 app = Flask(__name__)
 
-# Load the pre-trained sentiment analysis model (classifier)
-with open('static/model/nb_classifier.pkl', 'rb') as model_file:
-    model = pickle.load(model_file)
-
-# Load the TF-IDF vectorizer
-with open('static/model/tfidf_vectorizer.pkl', 'rb') as vectorizer_file:
-    vectorizer = pickle.load(vectorizer_file)
+# Load the pre-trained sentiment analysis model
+with open('static/model/svm_model.pkl', 'rb') as model_file:
+    model = joblib.load(model_file)
+    
+def preprocessText(text):
+    if pd.isnull(text):
+        return ""
+    cleaned_text = re.sub(r"<.*?>", "", text)
+    cleaned_text = re.sub(r'@[a-zA-Z0-9_]+\s?[a-zA-Z0-9_]+', "", cleaned_text)
+    cleaned_text = re.sub(r"http\S+|www\S+|https\S+", "", cleaned_text, flags=re.MULTILINE)
+    cleaned_text = re.sub(r"\d+", "", cleaned_text)
+    cleaned_text = re.sub(r"[^\w\s]", "", cleaned_text, flags=re.UNICODE)
+    cleaned_text = re.sub(r"[0-9]", "", cleaned_text)
+    words = nltk.word_tokenize(cleaned_text)
+    cleaned_text = " ".join(words)
+    cleaned_text = ku.Hemwar().ali_k_to_uni(cleaned_text)
+    return cleaned_text
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx', 'xls'}
@@ -24,15 +36,14 @@ def my_form():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    text = request.form['text']    
+    text = request.form['text']
+    
     if not text:
         return jsonify({'variable': 'تکایە ڕستەیەک بنووسە'})
     
-    # Vectorize the text data using the pre-trained TF-IDF vectorizer
-    text_data = vectorizer.transform([text])
+    preprocessed_text = preprocessText(text)
     
-    # Predict using the loaded classifier
-    predicted_label = model.predict(text_data)[0]
+    predicted_label = model.predict([preprocessed_text])[0]
 
     if predicted_label == 'positive':
         label = 'ئەم ڕستە ئەرێنییە✔️'
@@ -41,6 +52,7 @@ def predict():
     elif predicted_label == 'negative':
         label = 'ئەم ڕستەیە نەرێنییە❌'
 
+        
     return jsonify({'variable': label})
 
 @app.route('/downloads/<filename>')
@@ -71,8 +83,7 @@ def predict_file():
     analyzed_sentences = []
     for index, row in df.iterrows():
         sentence = row[text_column]
-        text_data = vectorizer.transform([sentence])
-        predicted_label = model.predict(text_data)[0]
+        predicted_label = model.predict([sentence])[0]
 
         if predicted_label == 'positive':
             label = 'Positive'
