@@ -538,10 +538,6 @@ a:hover:after {
   opacity: 1;
 }
 
-.with-icon {
- 
-}
-
 .clear-icon {
   position: absolute;
   left: 20px; /* Adjust the position as needed */
