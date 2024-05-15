@@ -123,6 +123,13 @@ function submitForm(event) {
 
 
 
+function clearTextArea() {
+    document.getElementById('inputText').value = ''; // Clear the textarea value
+}
+
+
+
+
 // Function to display custom alert
 function showAlert(message, alertClass = 'alert-warning') {
     const alertDiv = document.createElement('div');

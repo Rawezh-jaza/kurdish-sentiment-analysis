@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request, send_file, send_from
 import tempfile
 import os
 import pandas as pd # type: ignore
+import pickle
 
 app = Flask(__name__)
 
