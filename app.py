@@ -1,18 +1,31 @@
-from flask import Flask, jsonify, render_template, request, send_file, send_from_directory # type: ignore
+from flask import Flask, jsonify, render_template, request, send_file
 import tempfile
 import os
-import pandas as pd # type: ignore
-import pickle
+import pandas as pd
+import joblib
+import re
 
 app = Flask(__name__)
 
-import joblib
-
+# Load the SVM model
 with open('static/model/svm_model.pkl', 'rb') as model_file:
     model = joblib.load(model_file)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx', 'xls'}
+
+# Function to remove specific suffixes from each word in the text
+def remove_suffixes(text):
+    suffixes = ['ی', 'یان', 'م', 'مان', 'ت', 'تا']
+    words = text.split()
+    cleaned_words = []
+    for word in words:
+        for suffix in suffixes:
+            if word.endswith(suffix):
+                word = word[: -len(suffix)]
+                break
+        cleaned_words.append(word)
+    return ' '.join(cleaned_words)
 
 @app.route('/')
 def my_form():
@@ -25,7 +38,10 @@ def predict():
     if not text:
         return jsonify({'variable': 'تکایە ڕستەیەک بنووسە'})
     
-    predicted_label = model.predict([text])[0]
+    # Preprocess text to remove suffixes
+    cleaned_text = remove_suffixes(text)
+    
+    predicted_label = model.predict([cleaned_text])[0]
 
     if predicted_label == 'positive':
         label = 'ئەم ڕستە ئەرێنییە✔️'
@@ -34,7 +50,6 @@ def predict():
     elif predicted_label == 'negative':
         label = 'ئەم ڕستەیە نەرێنییە❌'
 
-        
     return jsonify({'variable': label})
 
 @app.route('/downloads/<filename>')
@@ -65,7 +80,11 @@ def predict_file():
     analyzed_sentences = []
     for index, row in df.iterrows():
         sentence = row[text_column]
-        predicted_label = model.predict([sentence])[0]
+        
+        # Preprocess sentence to remove suffixes
+        cleaned_sentence = remove_suffixes(sentence)
+        
+        predicted_label = model.predict([cleaned_sentence])[0]
 
         if predicted_label == 'positive':
             label = 'Positive'
@@ -88,4 +107,3 @@ def predict_file():
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=5000)
-
