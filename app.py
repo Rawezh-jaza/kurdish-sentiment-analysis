@@ -7,9 +7,13 @@ import re
 
 app = Flask(__name__)
 
-# Load the SVM model
-with open('static/model/svm_model.pkl', 'rb') as model_file:
+# Load the Naive Bayes model
+with open('static/model/nb_classifier.pkl', 'rb') as model_file:
     model = joblib.load(model_file)
+
+# Load the vectorizer
+with open('static/model/tfidf_vectorizer.pkl', 'rb') as vectorizer_file:
+    vectorizer = joblib.load(vectorizer_file)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'xlsx', 'xls'}
@@ -41,8 +45,12 @@ def predict():
     # Preprocess text to remove suffixes
     cleaned_text = remove_suffixes(text)
     
-    predicted_label = model.predict([cleaned_text])[0]
+    # Transform the input using the vectorizer
+    transformed_text = vectorizer.transform([cleaned_text])
+    
+    predicted_label = model.predict(transformed_text)[0]
 
+    # Determine the label based on the prediction
     if predicted_label == 'positive':
         label = 'ئەم ڕستە ئەرێنییە✔️'
     elif predicted_label == 'neutral':
@@ -84,13 +92,17 @@ def predict_file():
         # Preprocess sentence to remove suffixes
         cleaned_sentence = remove_suffixes(sentence)
         
-        predicted_label = model.predict([cleaned_sentence])[0]
+        # Transform the input using the vectorizer
+        transformed_sentence = vectorizer.transform([cleaned_sentence])
+        
+        predicted_label = model.predict(transformed_sentence)[0]
 
+        # Determine the label based on the prediction
         if predicted_label == 'positive':
             label = 'Positive'
         elif predicted_label == 'neutral':
             label = 'Neutral'
-        else:
+        elif predicted_label == 'negative':
             label = 'Negative'
 
         analyzed_sentences.append([sentence, label])
